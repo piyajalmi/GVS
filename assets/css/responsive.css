@@ -1,0 +1,58 @@
+@media (max-width: 768px) {
+
+  .header-flex {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .nav ul {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  .school-name h1 {
+    font-size: 16px;
+    text-align: center;
+  }
+}
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 28px;
+  }
+
+  .hero-subtitle {
+    font-size: 18px;
+  }
+  .hero-section {
+    padding: 60px 0;
+  }
+  .hero-box {
+    margin-top: 40px;
+    padding: 40px 30px;
+  }
+
+  .hero-box h1 {
+    font-size: 36px;
+  }
+
+  .hero-subtext {
+    font-size: 18px;
+  }
+}
+@media (max-width: 768px) {
+  .hero-wrapper {
+    position: relative;
+    height: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .event-slider {
+    padding: 14px;
+  }
+
+  .event-slider img {
+    max-height: 65vh;
+  }
+}

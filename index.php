@@ -1,3 +1,11 @@
+<?php
+$currentPage = basename($_SERVER['PHP_SELF']);
+require __DIR__ . '/admin/includes/db.php';
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,14 +59,29 @@
   <div class="nav-header">
     <div class="container">
       <nav class="nav">
-        <ul>
-           <li class="active"><a href="index.php">Home</a></li>
-          <li><a href="about.php">About Us</a></li>
-          <li><a href="curriculum.php">Curriculum</a></li>
-          <li><a href="gallery.php">Gallery</a></li>
-          <li><a href="blogs.php">Blogs</a></li>
-        </ul>
-      </nav>
+  <ul>
+    <li class="<?= ($currentPage == 'index.php') ? 'active' : '' ?>">
+      <a href="index.php">Home</a>
+    </li>
+
+    <li class="<?= ($currentPage == 'about.php') ? 'active' : '' ?>">
+      <a href="about.php">About Us</a>
+    </li>
+
+    <li class="<?= ($currentPage == 'curriculum.php') ? 'active' : '' ?>">
+      <a href="curriculum.php">Curriculum</a>
+    </li>
+
+    <li class="<?= ($currentPage == 'gallery.php') ? 'active' : '' ?>">
+      <a href="gallery.php">Gallery</a>
+    </li>
+
+    <li class="<?= ($currentPage == 'blogs.php') ? 'active' : '' ?>">
+      <a href="blogs.php">Blogs</a>
+    </li>
+  </ul>
+</nav>
+
     </div>
   </div>
 
@@ -149,19 +172,37 @@
       <!-- RIGHT: Notices / Events -->
       <div class="col-md-6">
         <div class="update-box">
-          <h5 class="mb-3">Notices & Events</h5>
+  <h5 class="mb-3">Notices & Events</h5>
 
-          <ul class="notice-list">
-            <li>📌 Admission Open for 2026–27</li>
-            <li>📌 Annual Sports Meet – Feb 2026</li>
-            <li>📌 Science Exhibition Winners Announced</li>
-            <li>📌 Republic Day Celebration Highlights</li>
-          </ul>
+  <ul class="notice-list">
+    <?php
+    $result = $conn->query(
+      "SELECT title, file FROM updates ORDER BY id DESC LIMIT 5"
+    );
 
-          <!-- OPTIONAL IMAGE 
-          <img src="assets/images/hero/about1.jpeg" class="img-fluid rounded mt-3" alt="School Event">
-          -->
-        </div>
+    if ($result->num_rows > 0):
+      while ($row = $result->fetch_assoc()):
+    ?>
+        <li>
+          📌
+          <?php if (!empty($row['file'])): ?>
+            <a href="admin/uploads/updates/<?= htmlspecialchars($row['file']) ?>"
+               target="_blank">
+              <?= htmlspecialchars($row['title']) ?>
+            </a>
+          <?php else: ?>
+            <?= htmlspecialchars($row['title']) ?>
+          <?php endif; ?>
+        </li>
+    <?php
+      endwhile;
+    else:
+    ?>
+      <li>No updates available</li>
+    <?php endif; ?>
+  </ul>
+</div>
+
       </div>
 
     </div>

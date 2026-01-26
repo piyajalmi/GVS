@@ -9,7 +9,7 @@ body {
   font-family: 'Inter', Arial, sans-serif;
   color: #111;
   background-color: #f6f2e8;
-  padding-top: 140px; /* fixed header offset */
+  padding-top: 150px; /* fixed header offset */
 }
 
 /* ================= HEADER ================= */
@@ -156,19 +156,25 @@ body {
 
 /* ================= CONTENT SECTIONS ================= */
 .content-section {
-  padding: 80px 0;   /* reduced from 120px */
+  padding: 60px 0;   /* reduced from 120px */
   margin-top: 0;
 }
 
 .content-section.light-bg {
   background: #f6f2e8;
+ 
 }
 
 .content-section h2 {
   font-size: 28px;
   font-weight: 700;
   margin-bottom: 15px;
+  margin-top:0;
 }
+.inner-page .content-section h2 {
+  margin-top: 40px;
+}
+
 
 .content-section p {
   font-size: 16px;
@@ -753,7 +759,7 @@ h1, h2, h3, h4, h5 {
 }
 /* ===== HOME HIGHLIGHT SECTION ===== */
 .home-highlight {
-  padding: 100px 0;
+  padding: 20px 0;
   background: #f6f2e8;
 }
 
@@ -913,4 +919,25 @@ h1, h2, h3, h4, h5 {
 
 .notice-list li:last-child {
   border-bottom: none;
+}
+
+/* ===== FINAL ACCORDION COMPACT FIX ===== */
+.accordion {
+  margin-bottom: 0;
+}
+
+.accordion-item {
+  margin-bottom: 6px;
+}
+
+.accordion-button {
+  padding: 10px 14px !important;
+  font-size: 15px;
+}
+
+.accordion-body {
+  padding: 10px 14px !important;
+}
+.pt-0 {
+  padding-top: 0 !important;
 }

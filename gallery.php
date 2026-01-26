@@ -1,4 +1,8 @@
+<?php
+$currentPage = basename($_SERVER['PHP_SELF']);
+?>
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -51,14 +55,29 @@
   <div class="nav-header">
     <div class="container">
       <nav class="nav">
-        <ul>
-          <li class="active"><a href="index.php">Home</a></li>
-          <li><a href="about.php">About Us</a></li>
-          <li><a href="curriculum.php">Curriculum</a></li>
-          <li><a href="gallery.php">Gallery</a></li>
-          <li><a href="blogs.php">Blogs</a></li>
-        </ul>
-      </nav>
+  <ul>
+    <li class="<?= ($currentPage == 'index.php') ? 'active' : '' ?>">
+      <a href="index.php">Home</a>
+    </li>
+
+    <li class="<?= ($currentPage == 'about.php') ? 'active' : '' ?>">
+      <a href="about.php">About Us</a>
+    </li>
+
+    <li class="<?= ($currentPage == 'curriculum.php') ? 'active' : '' ?>">
+      <a href="curriculum.php">Curriculum</a>
+    </li>
+
+    <li class="<?= ($currentPage == 'gallery.php') ? 'active' : '' ?>">
+      <a href="gallery.php">Gallery</a>
+    </li>
+
+    <li class="<?= ($currentPage == 'blogs.php') ? 'active' : '' ?>">
+      <a href="blogs.php">Blogs</a>
+    </li>
+  </ul>
+</nav>
+
     </div>
   </div>
 

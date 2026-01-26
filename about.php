@@ -1,4 +1,8 @@
+<?php
+$currentPage = basename($_SERVER['PHP_SELF']);
+?>
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -51,24 +55,34 @@
   <div class="nav-header">
     <div class="container">
       <nav class="nav">
-        <ul>
-          <li class="active"><a href="index.php">Home</a></li>
-          <li><a href="about.php">About Us</a></li>
-          <li><a href="curriculum.php">Curriculum</a></li>
-          <li><a href="gallery.php">Gallery</a></li>
-          <li><a href="blogs.php">Blogs</a></li>
-        </ul>
-      </nav>
+  <ul>
+    <li class="<?= ($currentPage == 'index.php') ? 'active' : '' ?>">
+      <a href="index.php">Home</a>
+    </li>
+
+    <li class="<?= ($currentPage == 'about.php') ? 'active' : '' ?>">
+      <a href="about.php">About Us</a>
+    </li>
+
+    <li class="<?= ($currentPage == 'curriculum.php') ? 'active' : '' ?>">
+      <a href="curriculum.php">Curriculum</a>
+    </li>
+
+    <li class="<?= ($currentPage == 'gallery.php') ? 'active' : '' ?>">
+      <a href="gallery.php">Gallery</a>
+    </li>
+
+    <li class="<?= ($currentPage == 'blogs.php') ? 'active' : '' ?>">
+      <a href="blogs.php">Blogs</a>
+    </li>
+  </ul>
+</nav>
+
     </div>
   </div>
 
 </header>
-<section class="page-banner">
-  <div class="container text-center">
-    <h1>About Us</h1>
-    <p>Learn about our history, vision, leadership, and dedicated staff</p>
-  </div>
-</section>
+
 
 <section class="content-section reveal">
   <div class="container">
@@ -151,10 +165,10 @@
 
   </div>
 </section>
-<section class="content-section">
+<section class="content-section pt-0">
   <div class="container text-end" style="max-width: 900px;">
 
-    <p class="mt-4">
+    <p >
       <strong>Mr. Prabhakar N. Kanekar</strong><br>
       Life Member, Gopalkrishna Vidhyprasarak Saunstha
     </p>

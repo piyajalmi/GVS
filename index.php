@@ -1,3 +1,11 @@
+<?php
+$currentPage = basename($_SERVER['PHP_SELF']);
+require __DIR__ . '/admin/includes/db.php';
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,14 +59,29 @@
   <div class="nav-header">
     <div class="container">
       <nav class="nav">
-        <ul>
-           <li class="active"><a href="index.php">Home</a></li>
-          <li><a href="about.php">About Us</a></li>
-          <li><a href="curriculum.php">Curriculum</a></li>
-          <li><a href="gallery.php">Gallery</a></li>
-          <li><a href="blogs.php">Blogs</a></li>
-        </ul>
-      </nav>
+  <ul>
+    <li class="<?= ($currentPage == 'index.php') ? 'active' : '' ?>">
+      <a href="index.php">Home</a>
+    </li>
+
+    <li class="<?= ($currentPage == 'about.php') ? 'active' : '' ?>">
+      <a href="about.php">About Us</a>
+    </li>
+
+    <li class="<?= ($currentPage == 'curriculum.php') ? 'active' : '' ?>">
+      <a href="curriculum.php">Curriculum</a>
+    </li>
+
+    <li class="<?= ($currentPage == 'gallery.php') ? 'active' : '' ?>">
+      <a href="gallery.php">Gallery</a>
+    </li>
+
+    <li class="<?= ($currentPage == 'blogs.php') ? 'active' : '' ?>">
+      <a href="blogs.php">Blogs</a>
+    </li>
+  </ul>
+</nav>
+
     </div>
   </div>
 
@@ -120,27 +143,72 @@
 
 
 <!-- ===== FACEBOOK UPDATES SECTION ===== -->
-<section class="fb-section">
-  <div class="container text-center">
+<!-- ===== UPDATES SECTION ===== -->
+<section class="content-section light-bg">
+  <div class="container">
 
-    <h2>Latest Updates</h2>
-    <p>Watch our latest activities and events live on Facebook.</p>
+    <h2 class="text-center mb-5">Latest Updates</h2>
 
-    <div class="fb-center">
-      <iframe
-        src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fgopalkrishnaschool&tabs=timeline&width=500&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true"
-        width="500"
-        height="500"
-        style="border:none;overflow:hidden"
-        scrolling="no"
-        frameborder="0"
-        allowfullscreen="true"
-        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
-      </iframe>
+    <div class="row g-4 align-items-start">
+
+      <!-- LEFT: Facebook Feed -->
+      <div class="col-md-6">
+        <div class="update-box">
+          <h5 class="mb-3">Facebook Updates</h5>
+
+          <iframe
+            src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fgopalkrishnaschool&tabs=timeline&width=500&height=450&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true"
+            width="100%"
+            height="450"
+            style="border:none;overflow:hidden"
+            scrolling="no"
+            frameborder="0"
+            allowfullscreen="true"
+            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+          </iframe>
+        </div>
+      </div>
+
+      <!-- RIGHT: Notices / Events -->
+      <div class="col-md-6">
+        <div class="update-box">
+  <h5 class="mb-3">Notices & Events</h5>
+
+  <ul class="notice-list">
+    <?php
+    $result = $conn->query(
+      "SELECT title, file FROM updates ORDER BY id DESC LIMIT 5"
+    );
+
+    if ($result->num_rows > 0):
+      while ($row = $result->fetch_assoc()):
+    ?>
+        <li>
+          📌
+          <?php if (!empty($row['file'])): ?>
+            <a href="admin/uploads/updates/<?= htmlspecialchars($row['file']) ?>"
+               target="_blank">
+              <?= htmlspecialchars($row['title']) ?>
+            </a>
+          <?php else: ?>
+            <?= htmlspecialchars($row['title']) ?>
+          <?php endif; ?>
+        </li>
+    <?php
+      endwhile;
+    else:
+    ?>
+      <li>No updates available</li>
+    <?php endif; ?>
+  </ul>
+</div>
+
+      </div>
+
     </div>
-
   </div>
 </section>
+
 
 
 

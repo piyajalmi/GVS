@@ -120,27 +120,54 @@
 
 
 <!-- ===== FACEBOOK UPDATES SECTION ===== -->
-<section class="fb-section">
-  <div class="container text-center">
+<!-- ===== UPDATES SECTION ===== -->
+<section class="content-section light-bg">
+  <div class="container">
 
-    <h2>Latest Updates</h2>
-    <p>Watch our latest activities and events live on Facebook.</p>
+    <h2 class="text-center mb-5">Latest Updates</h2>
 
-    <div class="fb-center">
-      <iframe
-        src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fgopalkrishnaschool&tabs=timeline&width=500&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true"
-        width="500"
-        height="500"
-        style="border:none;overflow:hidden"
-        scrolling="no"
-        frameborder="0"
-        allowfullscreen="true"
-        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
-      </iframe>
+    <div class="row g-4 align-items-start">
+
+      <!-- LEFT: Facebook Feed -->
+      <div class="col-md-6">
+        <div class="update-box">
+          <h5 class="mb-3">Facebook Updates</h5>
+
+          <iframe
+            src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fgopalkrishnaschool&tabs=timeline&width=500&height=450&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true"
+            width="100%"
+            height="450"
+            style="border:none;overflow:hidden"
+            scrolling="no"
+            frameborder="0"
+            allowfullscreen="true"
+            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+          </iframe>
+        </div>
+      </div>
+
+      <!-- RIGHT: Notices / Events -->
+      <div class="col-md-6">
+        <div class="update-box">
+          <h5 class="mb-3">Notices & Events</h5>
+
+          <ul class="notice-list">
+            <li>📌 Admission Open for 2026–27</li>
+            <li>📌 Annual Sports Meet – Feb 2026</li>
+            <li>📌 Science Exhibition Winners Announced</li>
+            <li>📌 Republic Day Celebration Highlights</li>
+          </ul>
+
+          <!-- OPTIONAL IMAGE 
+          <img src="assets/images/hero/about1.jpeg" class="img-fluid rounded mt-3" alt="School Event">
+          -->
+        </div>
+      </div>
+
     </div>
-
   </div>
 </section>
+
 
 
 

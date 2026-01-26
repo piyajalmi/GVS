@@ -28,10 +28,6 @@ body {
 
   position: relative; /* IMPORTANT */
 }
-.top-header-flex {
-  justify-content: space-between;
-}
-
 
 
 .top-header-flex {
@@ -282,10 +278,15 @@ body {
 /* ===== HEADER SOCIAL ICONS ===== */
 .header-socials {
   display: flex;
-  gap: 16px;
-  align-items: center;
-}
+   gap: 16px; 
+ 
+  transform: translateY(6px); 
+   position: absolute;
+  right: 40px;   /* move left from edge */
+  bottom: 12px;  /* move up/down from bottom */
 
+  
+}
 
 
 .header-socials a img {
@@ -433,37 +434,64 @@ body {
 .site-footer {
   background: #1e1e38;
   color: #fff;
-  padding: 14px 24px;     /* ↓ reduced */
+  padding: 20px 0 20px;
   margin-top: 40px;
 }
 
 .site-footer h5 {
-  font-size: 15px;
-  margin-bottom: 6px;
+  font-size: 18px;
+  margin-bottom: 5px;
+  font-weight: 600;
 }
 
 .site-footer p {
-  font-size: 13px;
-  line-height: 1.5;
-  margin-bottom: 6px;
+  font-size: 14px;
+  color: #ddd;
+  line-height: 1.3;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
 }
 
 .footer-links li {
-  margin-bottom: 4px;
+  margin-bottom: 8px;
 }
 
 .footer-links a {
-  font-size: 13px;
-}
-.site-footer hr {
-  margin: 10px 0;
-  border-color: rgba(255,255,255,0.15);
-}
-.footer-bottom p {
-  font-size: 12px;
-  margin: 0;
+  color: #ddd;
+  text-decoration: none;
+  font-size: 14px;
 }
 
+.footer-links a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+/* Social icons */
+.footer-socials {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.footer-socials img {
+  width: 10px;
+  height: 10px;
+}
+
+/* Footer bottom */
+.site-footer hr {
+  border-color: rgba(255,255,255,0.1);
+  margin: 15px 0 15px;
+}
+
+.footer-bottom p {
+  font-size: 10px;
+  color: #bbb;
+}
 /* ===== GLOBAL ANIMATION BASE ===== */
 :root {
   --anim-fast: 0.3s ease-out;
@@ -858,9 +886,31 @@ h1, h2, h3, h4, h5 {
     font-size: 24px;
   }
 }
-/* ===== FOOTER SIZE FIX ===== */
+/* ===== UPDATES 2-COLUMN SECTION ===== */
+.update-box {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+}
 
-/* Kill Bootstrap spacing inside footer */
-.site-footer .mb-4 {
-  margin-bottom: 8px !important;
+.update-box h5 {
+  font-weight: 600;
+  color: #1e1e38;
+}
+
+.notice-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.notice-list li {
+  padding: 10px 0;
+  border-bottom: 1px dashed #ddd;
+  font-size: 15px;
+  color: #333;
+}
+
+.notice-list li:last-child {
+  border-bottom: none;
 }

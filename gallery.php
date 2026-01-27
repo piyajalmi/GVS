@@ -39,10 +39,10 @@ $events = $conn->query(
     <div class="container top-header-flex">
 
       <div class="logo-center">
-        <img src="assets/images/logo.png" alt="School Logo">
+        <img src="assets/images/logo1.png" alt="School Logo">
         <div class="school-name">
-          <h1>Gopalkrishna Vidhyprasarak Saunstha</h1>
-          <p>Sankhali – Goa</p>
+          <h1>Gopalkrishna Pre-Primary, Primary & High School</h1>
+          <p>Gopalkrishna Vidhyprasarak Saunstha</p>
         </div>
       </div>
 <div class="header-socials">

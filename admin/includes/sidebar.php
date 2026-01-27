@@ -53,6 +53,15 @@
         </li>
       </ul>
     </li>
+    <li class="nav-item mt-3">
+  <span class="text-secondary small">Blogs</span>
+  <ul class="nav flex-column ms-3">
+    <li class="nav-item">
+      <a class="nav-link text-white" href="/GVS/admin/blogs/blogs.php">Manage Blogs</a>
+    </li>
+  </ul>
+</li>
+
 
     <li class="nav-item mt-4">
       <a class="nav-link text-danger" href="/GVS/admin/logout.php">

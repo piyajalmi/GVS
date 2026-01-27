@@ -17,12 +17,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $admin = $result->fetch_assoc();
 
 
-    if ($admin && password_verify($password, $admin['password'])) {
-        $_SESSION['admin_id'] = $admin['id'];
-        $_SESSION['admin_email'] = $admin['email'];
-        header("Location: dashboard.php");
-        exit;
-    } else {
+   if ($admin && password_verify($password, $admin['password'])) {
+    session_regenerate_id(true);
+    $_SESSION['admin_id'] = $admin['id'];
+    $_SESSION['admin_email'] = $admin['email'];
+    header("Location: dashboard.php");
+    exit;
+}
+ else {
         $error = "Invalid email or password";
     }
 }

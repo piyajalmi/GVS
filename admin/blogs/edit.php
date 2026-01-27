@@ -32,15 +32,22 @@ if (isset($_POST['update_blog'])) {
   $stmt->bind_param("sssi", $title, $desc, $img, $id);
   $stmt->execute();
 
-  header("Location: blog.php");
+  header("Location: blogs.php");
   exit;
 }
 ?>
 
-<?php include "../includes/header.php"; ?>
 
-<h3 class="mb-3">Edit Blog</h3>
 
+
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+   <h3 >Edit Blog</h3>
+  <a href="../dashboard.php?page=blogs"
+     class="btn btn-outline-danger">
+     ✕ Close
+  </a>
+</div>
 <form method="POST" enctype="multipart/form-data" class="card p-3">
   <input class="form-control mb-2"
          name="title"
@@ -60,7 +67,8 @@ if (isset($_POST['update_blog'])) {
   <input type="file" class="form-control mb-2" name="image">
 
   <button name="update_blog" class="btn btn-dark">Update Blog</button>
-  <a href="blog.php" class="btn btn-secondary mt-2">Cancel</a>
+  
+
 </form>
 
 <!-- CKEDITOR -->
@@ -71,4 +79,3 @@ ClassicEditor
   .catch(error => console.error(error));
 </script>
 
-<?php include "../includes/footer.php"; ?>

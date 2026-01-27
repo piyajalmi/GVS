@@ -9,11 +9,14 @@ body {
   font-family: 'Inter', Arial, sans-serif;
   color: #111;
   background-color: #f6f2e8;
-  padding-top: 150px; /* fixed header offset */
+  padding-top: 180px; /* fixed header offset */
 }
 /* ===== INNER PAGE HEADER OFFSET FIX ===== */
-.inner-page {
+/* .inner-page {
   padding-top: 0;
+} */
+.page-banner {
+  height: 10px;
 }
 
 .inner-page .content-section {

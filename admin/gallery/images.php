@@ -40,7 +40,15 @@ $images = $conn->query(
 </head>
 <body class="p-4">
 
-<h4>Event Images</h4>
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h4>Event Images</h4>
+  <a href="../dashboard.php?page=gallery_events"
+     class="btn btn-outline-danger">
+     ✕ Close
+  </a>
+</div>
+
+
 
 <form method="POST" enctype="multipart/form-data" class="mb-3">
   <input type="file" name="image" required>

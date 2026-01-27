@@ -1,5 +1,11 @@
 <?php
 $currentPage = basename($_SERVER['PHP_SELF']);
+require "admin/includes/db.php";
+$sections = $conn->query(
+  "SELECT * FROM curriculum_sections
+   WHERE is_active=1
+   ORDER BY sort_order"
+);
 ?>
 <!DOCTYPE html>
 
@@ -23,7 +29,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
 
 </head>
-<body class="inner-page">
+<body >
 
   <!-- ===== HEADER ===== -->
  <!-- ===== HEADER ===== -->
@@ -82,74 +88,35 @@ $currentPage = basename($_SERVER['PHP_SELF']);
   </div>
 
 </header>
+<div class="page-banner"></div>
 
 
-
+<?php while($c = $sections->fetch_assoc()): ?>
 <section class="content-section">
-  <div class="container">
+  <div class="container text-center">
 
-    <h2 class="text-center mb-4">Pre-Primary</h2>
+    <h2><?= $c['title'] ?></h2>
 
-    <div class="curriculum-box reveal">
-      <p>
-        The Pre-Primary curriculum focuses on early childhood development
-        through play-based learning, creativity, and exploration.
-        Activities are designed to enhance motor skills, communication,
-        social interaction, and emotional development in a nurturing
-        environment.
-      </p>
-
-      <p>
-        Emphasis is placed on storytelling, music, art, basic numeracy,
-        and language skills to prepare children for formal schooling.
-      </p>
-    </div>
-
-  </div>
-</section>
-<section class="content-section light-bg">
-  <div class="container">
-
-    <h2 class="text-center mb-4">Primary</h2>
+    <?php if ($c['image']): ?>
+      <img src="/GVS/admin/uploads/curriculum/images/<?= $c['image'] ?>"
+           class="img-fluid mb-3">
+    <?php endif; ?>
 
     <div class="curriculum-box">
-      <p>
-        The Primary curriculum builds a strong academic foundation while
-        encouraging curiosity and independent thinking.
-        Students are introduced to structured learning in subjects such
-        as languages, mathematics, environmental studies, and value
-        education.
-      </p>
-
-      <p>
-        Co-curricular activities, physical education, and life-skills
-        programs are integrated to support holistic development.
-      </p>
+      <?= $c['content'] ?>
     </div>
+
+    <?php if ($c['document']): ?>
+      <a href="/GVS/admin/uploads/curriculum/docs/<?= $c['document'] ?>"
+         class="btn btn-outline-dark mt-3"
+         target="_blank">
+        Download Curriculum
+      </a>
+    <?php endif; ?>
 
   </div>
 </section>
-<section class="content-section">
-  <div class="container">
-
-    <h2 class="text-center mb-4">High School</h2>
-
-    <div class="curriculum-box">
-      <p>
-        The High School curriculum is designed to prepare students for
-        higher education and future careers through academic rigor and
-        skill-based learning.
-      </p>
-
-      <p>
-        Emphasis is given to subject depth, critical thinking, practical
-        application, and moral values, along with guidance for academic
-        and personal growth.
-      </p>
-    </div>
-
-  </div>
-</section>
+<?php endwhile; ?>
 <footer class="site-footer">
   <div class="container">
 

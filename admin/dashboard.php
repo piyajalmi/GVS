@@ -1,6 +1,9 @@
 <?php
 require "includes/auth.php";
 $page = $_GET['page'] ?? 'home';
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Pragma: no-cache");
+
 ?>
 
 <!DOCTYPE html>
@@ -35,6 +38,19 @@ $page = $_GET['page'] ?? 'home';
       case 'gallery_events':
         include "gallery/events.php";
         break;
+
+        case 'blogs':
+        include "blogs/blogs.php";
+        break;
+
+        case 'curriculum':
+      require __DIR__ . '/curriculum/curriculum.php';
+      break;
+
+      case 'curriculum_edit':
+      require __DIR__ . '/curriculum/edit.php';
+      break;
+
 
       default:
         echo "<h2>Dashboard</h2><p>Welcome, Admin</p>";

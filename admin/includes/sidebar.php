@@ -1,21 +1,40 @@
-<div class="bg-dark text-white p-3" style="width:250px;min-height:100vh">
+<div class="sidebar bg-dark text-white p-3" style="width:260px;min-height:100vh;">
   <h5 class="mb-4">GVS Admin</h5>
 
   <ul class="nav flex-column">
 
     <li class="nav-item">
-      <a class="nav-link text-white" data-bs-toggle="collapse" href="#homeMenu">
-        Homepage ▾
-      </a>
-      <div class="collapse show" id="homeMenu">
-        <a class="nav-link ms-3 text-white" href="homepage/updates.php">
-          Updates
-        </a>
-      </div>
+      <a class="nav-link text-white" href="/GVS/admin/dashboard.php">Dashboard</a>
     </li>
 
+    <!-- Homepage -->
+    <li class="nav-item mt-2">
+      <span class="text-secondary small">Homepage</span>
+      <ul class="nav flex-column ms-3">
+        <li class="nav-item">
+          <a class="nav-link text-white" href="/GVS/admin/homepage/updates.php">Updates</a>
+        </li>
+      </ul>
+    </li>
+
+    <!-- About Page -->
     <li class="nav-item mt-3">
-      <a class="nav-link text-white" href="logout.php">Logout</a>
+      <span class="text-secondary small">About Page</span>
+      <ul class="nav flex-column ms-3">
+        <li class="nav-item">
+          <a class="nav-link text-white" href="/GVS/admin/about/sections.php">
+            Management Sections
+          </a>
+        </li>
+        <li class="nav-item">
+          
+          <a class="nav-link text-white" href="/GVS/admin/about/people.php">About → People</a>
+        </li>
+      </ul>
+    </li>
+
+    <li class="nav-item mt-4">
+      <a class="nav-link text-danger" href="/GVS/admin/logout.php">Logout</a>
     </li>
 
   </ul>

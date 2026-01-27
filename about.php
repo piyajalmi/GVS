@@ -1,5 +1,26 @@
 <?php
 $currentPage = basename($_SERVER['PHP_SELF']);
+require "admin/includes/db.php";
+
+$managementSections = $conn->query("
+  SELECT * FROM about_sections
+  WHERE page='management'
+  ORDER BY sort_order
+");
+
+// STAFF SECTIONS
+$staffSections = $conn->query("
+  SELECT * FROM about_sections
+  WHERE page='staff'
+  ORDER BY sort_order
+");
+
+// Prepare people query ONCE
+$peopleStmt = $conn->prepare("
+  SELECT * FROM about_people
+  WHERE section_id=?
+  ORDER BY sort_order
+");
 ?>
 <!DOCTYPE html>
 
@@ -209,118 +230,47 @@ $currentPage = basename($_SERVER['PHP_SELF']);
   <div class="container">
     <h2 class="text-center mb-5">Management & Committees</h2>
 
-    <div class="accordion" id="managementAccordion">
+    <?php while ($sec = $managementSections->fetch_assoc()): ?>
+  <div class="accordion-item mb-3">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#section<?= $sec['id'] ?>">
+        <?= $sec['section_name'] ?>
+      </button>
+    </h2>
 
-      <!-- Patrons -->
-      <div class="accordion-item">
-        <h2 class="accordion-header">
-          <button class="accordion-button collapsed" type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#patrons">
-            Patrons
-          </button>
-        </h2>
-        <div id="patrons" class="accordion-collapse collapse"
-             data-bs-parent="#managementAccordion">
-          <div class="accordion-body">
-            <ul class="member-list">
-              <li>Damodar R. Kanekar</li>
-              <li>Anil Laxman Kanekar</li>
-              <li>Sanjiv Anant Kanekar</li>
-              <li>Prasad Raghunath Pangam</li>
-              <li>Prathamesh Vinayak Karpe</li>
-              <li>Siddhesh Shankar Kanekar</li>
-              <li>Magnalal Anant Kanekar</li>
-              <li>Ashwinkumar Bhandudas Karpe</li>
-              <li>Devidas Jaidev Pangam</li>
-              <li>Rajesh Ramakant Kanekar</li>
-            </ul>
+    <div id="section<?= $sec['id'] ?>" class="accordion-collapse collapse">
+      <div class="accordion-body">
+
+        <?php
+          $peopleStmt->bind_param("i", $sec['id']);
+          $peopleStmt->execute();
+          $people = $peopleStmt->get_result();
+        ?>
+
+        <?php while ($p = $people->fetch_assoc()): ?>
+          <div class="d-flex gap-3 mb-3 align-items-start">
+
+            <?php if (!empty($p['image'])): ?>
+              <img src="/GVS/admin/uploads/about/<?= $p['image'] ?>"
+     style="width:60px;height:60px;object-fit:cover;border-radius:50%;">
+
+            <?php endif; ?>
+
+            <div>
+              <strong><?= $p['name'] ?></strong><br>
+              <?= $p['description'] ?>
+            </div>
+
           </div>
-        </div>
+        <?php endwhile; ?>
+
       </div>
-
-      <!-- Benefactors -->
-      <div class="accordion-item">
-        <h2 class="accordion-header">
-          <button class="accordion-button collapsed" type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#benefactors">
-            Benefactors
-          </button>
-        </h2>
-        <div id="benefactors" class="accordion-collapse collapse"
-             data-bs-parent="#managementAccordion">
-          <div class="accordion-body">
-            <ul class="member-list">
-              <li>Sanjay S. Kanekar</li>
-              <li>Rajesh Laxidas Shetye</li>
-              <li>Sushant Gurudas Pokle</li>
-              <li>Vishwesh Parmanand Karpe</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <!-- Life Members -->
-      <div class="accordion-item">
-        <h2 class="accordion-header">
-          <button class="accordion-button collapsed" type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#lifeMembers">
-            Life Members
-          </button>
-        </h2>
-        <div id="lifeMembers" class="accordion-collapse collapse"
-             data-bs-parent="#managementAccordion">
-          <div class="accordion-body">
-            <ul class="member-list">
-              <li>Nilesh Madhukar Kanekar</li>
-              <li>Sham / Suresh Laxman Kanekar</li>
-              <li>Satyawan Prabhakar Kanekar</li>
-              <li>Vinay Ratnakant Pangam</li>
-              <li>Priyesh Prakash Dangui</li>
-              <li>Dr. Sadanand Shivnath Hinde</li>
-              <li>Rajdat Prakash Shetye</li>
-              <li>Videsh Vinayak Shetye</li>
-              <li>Sunil S. Pokle</li>
-              <li>Eknath Narcinva Karpe</li>
-              <!-- more later via CMS -->
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <!-- Committees -->
-      <div class="accordion-item">
-        <h2 class="accordion-header">
-          <button class="accordion-button collapsed" type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#committees">
-            Committees & PTA
-          </button>
-        </h2>
-        <div id="committees" class="accordion-collapse collapse"
-             data-bs-parent="#managementAccordion">
-          <div class="accordion-body">
-            <p><strong>School Managing Committee</strong></p>
-            <ul class="member-list">
-              <li>Dr. Sadanand Shivnath Hinde – President</li>
-              <li>Upendra Bhaskar Karpe – Vice President</li>
-              <li>Sanjiv Anant Kanekar – Secretary</li>
-              <li>Anil Laxman Kanekar – Joint Secretary</li>
-              <li>Damodar Rajaram Kanekar – Treasurer</li>
-            </ul>
-
-            <p class="mt-3"><strong>PTA Committees</strong></p>
-            <ul class="member-list">
-              <li>Primary School PTA</li>
-              <li>High School PTA</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
     </div>
+  </div>
+<?php endwhile; ?>
+
   </div>
 </section>
 
@@ -365,82 +315,46 @@ $currentPage = basename($_SERVER['PHP_SELF']);
     <div class="accordion staff-accordion" id="staffAccordion">
 
       <!-- Pre-Primary -->
-      <div class="accordion-item">
-        <h2 class="accordion-header">
-          <button class="accordion-button collapsed" type="button"
-            data-bs-toggle="collapse" data-bs-target="#prePrimary">
-            Pre-Primary Teaching Staff
-          </button>
-        </h2>
-        <div id="prePrimary" class="accordion-collapse collapse"
-             data-bs-parent="#staffAccordion">
-          <div class="accordion-body">
-            <ul class="staff-list">
-              <li><strong>Mrs. Deepa Mangaldas Shiv Vernekar</strong> — B.A.</li>
-              <li><strong>Mrs. Pushpa Maruti Devlatkar</strong> — SSC</li>
-            </ul>
-          </div>
-        </div>
-      </div>
+      <?php while ($sec = $staffSections->fetch_assoc()): ?>
+  <div class="accordion-item mb-3">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#staff<?= $sec['id'] ?>">
+        <?= $sec['section_name'] ?>
+      </button>
+    </h2>
 
-      <!-- Primary -->
-      <div class="accordion-item">
-        <h2 class="accordion-header">
-          <button class="accordion-button collapsed" type="button"
-            data-bs-toggle="collapse" data-bs-target="#primary">
-            Primary Teaching Staff
-          </button>
-        </h2>
-        <div id="primary" class="accordion-collapse collapse"
-             data-bs-parent="#staffAccordion">
-          <div class="accordion-body">
-            <ul class="staff-list">
-              <li><strong>Mrs. Infana Mehboob Khan Pathan</strong> — HSSC</li>
-              <li><strong>Mrs. Gandhali Nagesh Majik</strong> — B.A. D.Ed / B.Ed</li>
-              <li><strong>Mrs. Urvi Umesh Gosavi</strong> — B.A. B.Ed</li>
-              <li><strong>Mrs. Rahi Ritesh Saloskar</strong> — HSSC D.Ed</li>
-            </ul>
-          </div>
-        </div>
-      </div>
+    <div id="staff<?= $sec['id'] ?>" class="accordion-collapse collapse">
+      <div class="accordion-body">
 
-      <!-- High School -->
-      <div class="accordion-item">
-        <h2 class="accordion-header">
-          <button class="accordion-button collapsed" type="button"
-            data-bs-toggle="collapse" data-bs-target="#highSchool">
-            High School Teaching Staff
-          </button>
-        </h2>
-        <div id="highSchool" class="accordion-collapse collapse"
-             data-bs-parent="#staffAccordion">
-          <div class="accordion-body">
-            <ul class="staff-list">
-              <li><strong>Mr. Viraj Vithal Gawas</strong> — HSSC D.Ed</li>
-              <li><strong>Mr. Sarvesh Sadanand Barve</strong> — M.Sc B.Ed</li>
-            </ul>
-          </div>
-        </div>
-      </div>
+        <?php
+          $peopleStmt->bind_param("i", $sec['id']);
+          $peopleStmt->execute();
+          $people = $peopleStmt->get_result();
+        ?>
 
-      <!-- Attendant -->
-      <div class="accordion-item">
-        <h2 class="accordion-header">
-          <button class="accordion-button collapsed" type="button"
-            data-bs-toggle="collapse" data-bs-target="#attendant">
-            Attendant Staff
-          </button>
-        </h2>
-        <div id="attendant" class="accordion-collapse collapse"
-             data-bs-parent="#staffAccordion">
-          <div class="accordion-body">
-            <ul class="staff-list">
-              <li><strong>Mrs. Kalpita Kamlakant Naik</strong> — Elementary</li>
-              <li><strong>Mrs. Nilima Siddharth Pednekar</strong> — SSC</li>
-            </ul>
+        <?php while ($p = $people->fetch_assoc()): ?>
+          <div class="d-flex gap-3 mb-3 align-items-start">
+
+            <?php if (!empty($p['image'])): ?>
+              <img src="/GVS/admin/uploads/about/<?= $p['image'] ?>"
+     style="width:60px;height:60px;object-fit:cover;border-radius:50%;">
+
+            <?php endif; ?>
+
+            <div>
+              <strong><?= $p['name'] ?></strong><br>
+              <?= $p['description'] ?>
+            </div>
+
           </div>
-        </div>
+        <?php endwhile; ?>
+
       </div>
+    </div>
+  </div>
+<?php endwhile; ?>
 
     </div>
   </div>

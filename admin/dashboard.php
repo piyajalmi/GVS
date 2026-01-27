@@ -1,6 +1,6 @@
 <?php
-session_start();
-require __DIR__ . '/includes/auth.php';
+require "includes/auth.php";
+$page = $_GET['page'] ?? 'home';
 ?>
 
 <!DOCTYPE html>
@@ -12,12 +12,37 @@ require __DIR__ . '/includes/auth.php';
 <body>
 
 <div class="d-flex">
+
   <?php include "includes/sidebar.php"; ?>
 
-  <main class="p-4 flex-grow-1">
-    <h2>Dashboard</h2>
-    <p>Welcome, Admin</p>
+  <main class="flex-grow-1 p-4">
+
+    <?php
+    switch ($page) {
+
+      case 'updates':
+        include "homepage/updates.php";
+        break;
+
+      case 'about_sections':
+        include "about/sections.php";
+        break;
+
+      case 'about_people':
+        include "about/people.php";
+        break;
+
+      case 'gallery_events':
+        include "gallery/events.php";
+        break;
+
+      default:
+        echo "<h2>Dashboard</h2><p>Welcome, Admin</p>";
+    }
+    ?>
+
   </main>
+
 </div>
 
 </body>

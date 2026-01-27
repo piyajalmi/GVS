@@ -4,7 +4,9 @@
   <ul class="nav flex-column">
 
     <li class="nav-item">
-      <a class="nav-link text-white" href="/GVS/admin/dashboard.php">Dashboard</a>
+      <a class="nav-link text-white" href="/GVS/admin/dashboard.php">
+        Dashboard
+      </a>
     </li>
 
     <!-- Homepage -->
@@ -12,7 +14,10 @@
       <span class="text-secondary small">Homepage</span>
       <ul class="nav flex-column ms-3">
         <li class="nav-item">
-          <a class="nav-link text-white" href="/GVS/admin/homepage/updates.php">Updates</a>
+          <a class="nav-link text-white"
+             href="/GVS/admin/dashboard.php?page=updates">
+            Updates
+          </a>
         </li>
       </ul>
     </li>
@@ -22,19 +27,37 @@
       <span class="text-secondary small">About Page</span>
       <ul class="nav flex-column ms-3">
         <li class="nav-item">
-          <a class="nav-link text-white" href="/GVS/admin/about/sections.php">
+          <a class="nav-link text-white"
+             href="/GVS/admin/dashboard.php?page=about_sections">
             Management Sections
           </a>
         </li>
         <li class="nav-item">
-          
-          <a class="nav-link text-white" href="/GVS/admin/about/people.php">About → People</a>
+          <a class="nav-link text-white"
+             href="/GVS/admin/dashboard.php?page=about_people">
+            About → People
+          </a>
+        </li>
+      </ul>
+    </li>
+
+    <!-- Gallery -->
+    <li class="nav-item mt-3">
+      <span class="text-secondary small">Gallery</span>
+      <ul class="nav flex-column ms-3">
+        <li class="nav-item">
+          <a class="nav-link text-white"
+             href="/GVS/admin/dashboard.php?page=gallery_events">
+            Events
+          </a>
         </li>
       </ul>
     </li>
 
     <li class="nav-item mt-4">
-      <a class="nav-link text-danger" href="/GVS/admin/logout.php">Logout</a>
+      <a class="nav-link text-danger" href="/GVS/admin/logout.php">
+        Logout
+      </a>
     </li>
 
   </ul>

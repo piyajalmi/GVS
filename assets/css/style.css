@@ -11,6 +11,15 @@ body {
   background-color: #f6f2e8;
   padding-top: 150px; /* fixed header offset */
 }
+/* ===== INNER PAGE HEADER OFFSET FIX ===== */
+.inner-page {
+  padding-top: 0;
+}
+
+.inner-page .content-section {
+  padding-top: 40px;   /* space below navbar */
+}
+
 
 /* ================= HEADER ================= */
 .header {
@@ -419,6 +428,11 @@ body {
   color: #555;
   line-height: 1.6;
 }
+/* ===== BLOG DETAIL PAGE FIX ===== */
+.inner-page .content-section h1 {
+  margin-top: 0;
+}
+
 
 .read-more {
   display: inline-block;

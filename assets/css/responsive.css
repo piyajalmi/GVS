@@ -56,3 +56,8 @@
     max-height: 65vh;
   }
 }
+@media (min-width: 992px) {
+  .inner-page .content-section {
+    padding-top: 60px;
+  }
+}

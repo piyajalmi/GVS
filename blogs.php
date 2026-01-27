@@ -1,5 +1,7 @@
 <?php
 $currentPage = basename($_SERVER['PHP_SELF']);
+require "admin/includes/db.php";
+$blogs = $conn->query("SELECT * FROM blogs ORDER BY id DESC");
 ?>
 <!DOCTYPE html>
 
@@ -34,10 +36,10 @@ $currentPage = basename($_SERVER['PHP_SELF']);
     <div class="container top-header-flex">
 
       <div class="logo-center">
-        <img src="assets/images/logo.png" alt="School Logo">
+        <img src="assets/images/logo1.png" alt="School Logo">
         <div class="school-name">
-          <h1>Gopalkrishna Vidhyprasarak Saunstha</h1>
-          <p>Sankhali – Goa</p>
+          <h1>Gopalkrishna Pre-Primary, Primary & High School</h1>
+          <p>Gopalkrishna Vidhyprasarak Saunstha</p>
         </div>
       </div>
 <div class="header-socials">
@@ -91,63 +93,31 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 </section>
 <section class="content-section">
   <div class="container">
-
-    <div class="row">
-
-      <!-- Blog Card -->
-      <div class="col-md-4 mb-4">
-        <div class="blog-card reveal">
-          <img src="assets/images/blogs/blog1.jpg" alt="Blog Image">
-
-          <div class="blog-content">
-            <h5>Annual Day Celebration</h5>
-            <p>
-              Our Annual Day was celebrated with great enthusiasm,
-              showcasing cultural performances and student talent.
-            </p>
-
-            <a href="blog-detail.php" class="read-more">Read More</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Blog Card -->
+  <div class="row">
+    <?php while($b = $blogs->fetch_assoc()): ?>
       <div class="col-md-4 mb-4">
         <div class="blog-card">
-          <img src="assets/images/blogs/blog2.jpg" alt="Blog Image">
+          <?php if($b['image']): ?>
+            <img src="admin/blogs/uploads/blogs/<?= $b['image'] ?>">
+          <?php endif; ?>
 
           <div class="blog-content">
-            <h5>Sports Day Highlights</h5>
+            <h5><?= $b['title'] ?></h5>
             <p>
-              Students participated actively in various sports events,
-              demonstrating teamwork and sportsmanship.
-            </p>
+  <?= substr(strip_tags($b['description']), 0, 120) ?>...
+</p>
 
-            <a href="blog-detail.php" class="read-more">Read More</a>
+
+            <a class="read-more"
+               href="blog-detail.php?id=<?= $b['id'] ?>">
+               Read More
+            </a>
           </div>
         </div>
       </div>
-
-      <!-- Blog Card -->
-      <div class="col-md-4 mb-4">
-        <div class="blog-card">
-          <img src="assets/images/blogs/blog3.jpg" alt="Blog Image">
-
-          <div class="blog-content">
-            <h5>Educational Workshop</h5>
-            <p>
-              An interactive workshop was conducted to enhance learning
-              skills and student engagement.
-            </p>
-
-            <a href="blog-detail.php" class="read-more">Read More</a>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
+    <?php endwhile; ?>
   </div>
+</div>
 </section>
 <footer class="site-footer">
   <div class="container">

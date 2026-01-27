@@ -1,6 +1,14 @@
 <?php
 $currentPage = basename($_SERVER['PHP_SELF']);
+require "admin/includes/db.php";
+$id = (int)$_GET['id'];
+
+$blog = $conn->query(
+  "SELECT * FROM blogs WHERE id=$id"
+)->fetch_assoc();
 ?>
+
+
 <!DOCTYPE html>
 
 <html lang="en">
@@ -36,8 +44,8 @@ $currentPage = basename($_SERVER['PHP_SELF']);
       <div class="logo-center">
         <img src="assets/images/logo.png" alt="School Logo">
         <div class="school-name">
-          <h1>Gopalkrishna Vidhyprasarak Saunstha</h1>
-          <p>Sankhali – Goa</p>
+          <h1>Gopalkrishna Pre-Primary, Primary & High School</h1>
+          <p>Gopalkrishna Vidhyprasarak Saunstha</p>
         </div>
       </div>
 <div class="header-socials">
@@ -82,33 +90,41 @@ $currentPage = basename($_SERVER['PHP_SELF']);
   </div>
 
 </header>
+<section class="page-banner">
+  <div class="container text-center">
+    <h1><?= htmlspecialchars($blog['title']) ?></h1>
+    <p class="text-muted">
+      Published on <?= date("d F Y", strtotime($blog['created_at'])) ?>
+    </p>
+  </div>
+</section>
 
 <section class="content-section">
   <div class="container">
 
-    <h1 class="mb-3">Annual Day Celebration</h1>
-    <p class="text-muted mb-4">Published on 20 January 2026</p>
+    <!-- BLOG TITLE 
+    <h1 class="mb-3"><?= htmlspecialchars($blog['title']) ?></h1>
 
-    <img src="assets/images/blogs/blog1.jpg"
-         class="img-fluid mb-4"
-         alt="Blog Image">
+    DATE 
+    <p class="text-muted mb-4">
+      Published on <?= date("d F Y", strtotime($blog['created_at'])) ?>
+    </p> -->
 
-    <div class="blog-detail-content">
-      <p>
-        The Annual Day celebration was organized with great enthusiasm
-        and participation from students, teachers, and parents.
-      </p>
+    <!-- IMAGE (ONLY IF EXISTS) -->
+    <?php if (!empty($blog['image'])): ?>
+      <img src="admin/blogs/uploads/blogs/<?= $blog['image'] ?>"
+           class="img-fluid mb-4"
+           alt="<?= htmlspecialchars($blog['title']) ?>">
+    <?php endif; ?>
 
-      <p>
-        Cultural programs, speeches, and performances highlighted
-        the talents and creativity of our students.
-      </p>
+    <!-- FULL BLOG CONTENT -->
+  <div class="blog-detail-content">
+  <?= $blog['description'] ?>
+</div>
 
-      <!-- RTF CONTENT GOES HERE LATER -->
-    </div>
 
   </div>
-</section>
+    </section>
 
 <footer class="site-footer">
   <div class="container">

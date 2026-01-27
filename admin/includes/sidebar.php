@@ -14,10 +14,8 @@
       <span class="text-secondary small">Homepage</span>
       <ul class="nav flex-column ms-3">
         <li class="nav-item">
-          <a class="nav-link text-white"
-             href="/GVS/admin/dashboard.php?page=updates">
-            Updates
-          </a>
+          <a class="nav-link text-white" href="/GVS/admin/dashboard.php?page=updates">Updates</a>
+
         </li>
       </ul>
     </li>
@@ -61,6 +59,17 @@
     </li>
   </ul>
 </li>
+ <li class="nav-item mt-4">
+      <a class="nav-link text-white" href="dashboard.php?page=curriculum">
+        Curriculum
+      </a>
+    </li>
+<!-- <li class="<?= ($_GET['page'] ?? '') == 'curriculum' ? 'active' : '' ?>">
+  <a href="dashboard.php?page=curriculum">
+    Curriculum
+  </a>
+</li> -->
+
 
 
     <li class="nav-item mt-4">

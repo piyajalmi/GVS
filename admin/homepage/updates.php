@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 require __DIR__ . '/../includes/auth.php';
 require __DIR__ . '/../includes/db.php';
 
@@ -43,8 +43,9 @@ if (isset($_POST['update_id'])) {
     $stmt->bind_param("ssi", $title, $fileName, $id);
     $stmt->execute();
 
-    header("Location: updates.php");
-    exit;
+    header("Location: /GVS/admin/dashboard.php?page=updates");
+exit;
+
 }
 
 /* ===== DELETE UPDATE ===== */
@@ -71,8 +72,9 @@ if (isset($_GET['delete'])) {
     $stmt->bind_param("i", $id);
     $stmt->execute();
 
-    header("Location: updates.php");
-    exit;
+   header("Location: /GVS/admin/dashboard.php?page=updates");
+exit;
+
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $title = $_POST['title'];
@@ -124,7 +126,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <?php if ($editData && $editData['file']): ?>
     <small>
       Current file:
-      <a href="../uploads/updates/<?= $editData['file'] ?>" target="_blank">
+      <a href="/GVS/admin/uploads/updates/<?= $editData['file'] ?>" target="_blank">
         View
       </a>
     </small>
@@ -135,7 +137,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   </button>
 
   <?php if ($editData): ?>
-    <a href="updates.php" class="btn btn-secondary mt-2">Cancel</a>
+    <a href="../dashboard.php?page=updates"
+   class="btn btn-secondary mt-2">
+   Cancel
+</a>
+
   <?php endif; ?>
 
 </form>
@@ -158,7 +164,7 @@ $result = $conn->query("SELECT * FROM updates ORDER BY created_at DESC");
         <td><?= htmlspecialchars($row['title']) ?></td>
         <td>
           <?php if ($row['file']): ?>
-            <a href="../uploads/updates/<?= $row['file'] ?>" target="_blank">
+            <a href="/GVS/admin/uploads/updates/<?= $row['file'] ?>" target="_blank">
               View File
             </a>
           <?php else: ?>
@@ -166,16 +172,20 @@ $result = $conn->query("SELECT * FROM updates ORDER BY created_at DESC");
           <?php endif; ?>
         </td>
         <td>
-  <a href="updates.php?edit=<?= $row['id'] ?>"
-     class="btn btn-sm btn-warning">
-     Edit
-  </a>
+ <a href="/GVS/admin/dashboard.php?page=updates&edit=<?= $row['id'] ?>"
+   class="btn btn-warning btn-sm">
+   Edit
+</a>
 
-  <a href="updates.php?delete=<?= $row['id'] ?>"
-     class="btn btn-sm btn-danger"
-     onclick="return confirm('Delete this update?')">
-     Delete
-  </a>
+
+
+<a href="/GVS/admin/dashboard.php?page=updates&delete=<?= $row['id'] ?>"
+   class="btn btn-danger btn-sm"
+   onclick="return confirm('Delete this update?')">
+   Delete
+</a>
+
+
 </td>
 
       </tr>

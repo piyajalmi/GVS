@@ -67,11 +67,12 @@ $events = $conn->query(
 
       </td>
       <td>
-        <a href="?delete=<?= $e['id'] ?>"
-           onclick="return confirm('Delete event?')"
-           class="btn btn-sm btn-danger">
-           Delete
-        </a>
+        <a href="dashboard.php?page=gallery_events&delete=<?= $e['id'] ?>"
+   onclick="return confirm('Delete event?')"
+   class="btn btn-sm btn-danger">
+   Delete
+</a>
+
       </td>
     </tr>
   <?php endwhile; ?>

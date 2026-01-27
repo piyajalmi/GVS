@@ -22,7 +22,7 @@ if (isset($_POST['add_blog'])) {
   $stmt->bind_param("sss", $title, $desc, $img);
   $stmt->execute();
 
-  header("Location: blog.php");
+  header("Location: blogs.php");
   exit;
 }
 
@@ -30,7 +30,7 @@ if (isset($_POST['add_blog'])) {
 if (isset($_GET['delete'])) {
   $id = (int)$_GET['delete'];
   $conn->query("DELETE FROM blogs WHERE id=$id");
-  header("Location: blog.php");
+  header("Location: blogs.php");
   exit;
 }
 
@@ -38,9 +38,10 @@ if (isset($_GET['delete'])) {
 $blogs = $conn->query("SELECT * FROM blogs ORDER BY id DESC");
 ?>
 
-<?php include "../includes/header.php"; ?>
+
 
 <h3 class="mb-3">Blogs</h3>
+
 
 <!-- ADD BLOG FORM -->
 <form method="POST" enctype="multipart/form-data" class="card p-3 mb-4">
@@ -94,4 +95,4 @@ ClassicEditor
   .catch(error => console.error(error));
 </script>
 
-<?php include "../includes/footer.php"; ?>
+

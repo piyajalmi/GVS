@@ -1,63 +1,62 @@
+/* ================= MOBILE HEADER ================= */
 @media (max-width: 768px) {
 
-  .header-flex {
+  .header-inner {
     flex-direction: column;
+    align-items: center;
     gap: 10px;
   }
 
-  .nav ul {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 15px;
+  .header-left {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .header-left img {
+    width: 70px;
   }
 
   .school-name h1 {
-    font-size: 16px;
+    font-size: 18px;
     text-align: center;
   }
-}
-@media (max-width: 768px) {
-  .hero-title {
-    font-size: 28px;
+
+  .school-name p {
+    font-size: 13px;
   }
 
-  .hero-subtitle {
-    font-size: 18px;
+  .header-nav {
+    gap: 18px;
+    flex-wrap: wrap;
+    justify-content: center;
   }
+
+  .header-socials {
+    margin-top: 15px;
+  }
+}
+
+/* ================= HERO ================= */
+@media (max-width: 768px) {
+
   .hero-section {
-    padding: 60px 0;
-  }
-  .hero-box {
-    margin-top: 40px;
-    padding: 40px 30px;
-  }
-
-  .hero-box h1 {
-    font-size: 36px;
-  }
-
-  .hero-subtext {
-    font-size: 18px;
-  }
-}
-@media (max-width: 768px) {
-  .hero-wrapper {
-    position: relative;
     height: auto;
+    padding-top: 120px; /* prevents overlap with fixed header */
+  }
+
+  .hero-content {
+    margin: 20px;
+    padding: 30px 25px;
+  }
+
+  .hero-content h1 {
+    font-size: 24px;
   }
 }
 
-@media (max-width: 768px) {
-  .event-slider {
-    padding: 14px;
-  }
-
-  .event-slider img {
-    max-height: 65vh;
-  }
-}
+/* ================= INNER PAGES FIX ================= */
 @media (min-width: 992px) {
-  .inner-page .content-section {
-    padding-top: 60px;
+  .inner-page {
+    padding-top: 120px; /* FIX for fixed header overlap */
   }
 }

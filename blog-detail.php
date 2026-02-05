@@ -33,62 +33,30 @@ $blog = $conn->query(
 </head>
 <body class="inner-page">
 
-  <!-- ===== HEADER ===== -->
- <!-- ===== HEADER ===== -->
-<header class="header">
+<header class="main-header">
+  <div class="header-inner">
 
-  <!-- Top Header -->
-  <div class="top-header">
-    <div class="container top-header-flex">
-
-      <div class="logo-center">
-        <img src="assets/images/logo1.png" alt="School Logo">
-        <div class="school-name">
-          <h1>Gopalkrishna Pre-Primary, Primary & High School</h1>
-          <p>Gopalkrishna Vidhyprasarak Saunstha</p>
-        </div>
+    <!-- LEFT: Logo + Name -->
+    <div class="header-left">
+      <img src="assets/images/logo1.png" alt="School Logo">
+      <div class="school-name">
+        <h1>Gopalkrishna Pre-Primary, Primary & High School</h1>
+        <p>Gopalkrishna Vidhyprasarak Saunstha</p>
       </div>
-<div class="header-socials">
-      <a href="https://www.facebook.com/gopalkrishnaschool" aria-label="Facebook" target="_blank">
-        <img src="assets/icons/facebook.png" alt="Facebook">
-      </a>
-      <a href="//www.instagram.com/gopalkrishna_high_school" aria-label="Instagram" target="_blank">
-        <img src="assets/icons/instagram.png" alt="Instagram">
-      </a>
     </div>
-    </div>
+
+    <!-- RIGHT: Navigation -->
+    <nav class="header-nav">
+      <a class="<?= ($currentPage=='index.php')?'active':'' ?>" href="index.php">Home</a>
+      <a class="<?= ($currentPage=='about.php')?'active':'' ?>" href="about.php">About Us</a>
+      <a class="<?= ($currentPage=='curriculum.php')?'active':'' ?>" href="curriculum.php">Curriculum</a>
+      <a class="<?= ($currentPage=='gallery.php')?'active':'' ?>" href="gallery.php">Gallery</a>
+      <a class="<?= ($currentPage=='blogs.php')?'active':'' ?>" href="blogs.php">Blogs</a>
+    </nav>
+
+    
+
   </div>
-
-  <!-- Bottom Navigation -->
-  <div class="nav-header">
-    <div class="container">
-      <nav class="nav">
-  <ul>
-    <li class="<?= ($currentPage == 'index.php') ? 'active' : '' ?>">
-      <a href="index.php">Home</a>
-    </li>
-
-    <li class="<?= ($currentPage == 'about.php') ? 'active' : '' ?>">
-      <a href="about.php">About Us</a>
-    </li>
-
-    <li class="<?= ($currentPage == 'curriculum.php') ? 'active' : '' ?>">
-      <a href="curriculum.php">Curriculum</a>
-    </li>
-
-    <li class="<?= ($currentPage == 'gallery.php') ? 'active' : '' ?>">
-      <a href="gallery.php">Gallery</a>
-    </li>
-
-    <li class="<?= ($currentPage == 'blogs.php') ? 'active' : '' ?>">
-      <a href="blogs.php">Blogs</a>
-    </li>
-  </ul>
-</nav>
-
-    </div>
-  </div>
-
 </header>
 <section class="page-banner">
   <div class="container text-center">
@@ -132,7 +100,7 @@ $blog = $conn->query(
     <div class="row">
 
       <!-- School Info -->
-      <div class="col-md-4 mb-4">
+      <div class="col-md-4">
         <h5>Gopalkrishna Vidhyprasarak Saunstha</h5>
         <p>
           Sankhali – Goa<br>
@@ -142,7 +110,7 @@ $blog = $conn->query(
       </div>
 
       <!-- Quick Links -->
-      <div class="col-md-4 mb-4">
+      <div class="col-md-4">
         <h5>Quick Links</h5>
         <ul class="footer-links">
           <li><a href="index.php">Home</a></li>
@@ -154,7 +122,7 @@ $blog = $conn->query(
       </div>
 
       <!-- Contact & Social -->
-      <div class="col-md-4 mb-4">
+      <div class="col-md-4">
         <h5>Connect With Us</h5>
 
         <p>

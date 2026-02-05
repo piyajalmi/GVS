@@ -1,4 +1,16 @@
+<?php
+$currentPage = basename($_SERVER['PHP_SELF']);
+require "admin/includes/db.php";
+$id = (int)$_GET['id'];
+
+$blog = $conn->query(
+  "SELECT * FROM blogs WHERE id=$id"
+)->fetch_assoc();
+?>
+
+
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -21,75 +33,66 @@
 </head>
 <body class="inner-page">
 
-  <!-- ===== HEADER ===== -->
- <!-- ===== HEADER ===== -->
-<header class="header">
+<header class="main-header">
+  <div class="header-inner">
 
-  <!-- Top Header -->
-  <div class="top-header">
-    <div class="container top-header-flex">
-
-      <div class="logo-center">
-        <img src="assets/images/logo.png" alt="School Logo">
-        <div class="school-name">
-          <h1>Gopalkrishna Vidhyprasarak Saunstha</h1>
-          <p>Sankhali – Goa</p>
-        </div>
+    <!-- LEFT: Logo + Name -->
+    <div class="header-left">
+      <img src="assets/images/logo1.png" alt="School Logo">
+      <div class="school-name">
+        <h1>Gopalkrishna Pre-Primary, Primary & High School</h1>
+        <p>Gopalkrishna Vidhyprasarak Saunstha</p>
       </div>
-<div class="header-socials">
-      <a href="https://www.facebook.com/gopalkrishnaschool" aria-label="Facebook" target="_blank">
-        <img src="assets/icons/facebook.png" alt="Facebook">
-      </a>
-      <a href="//www.instagram.com/gopalkrishna_high_school" aria-label="Instagram" target="_blank">
-        <img src="assets/icons/instagram.png" alt="Instagram">
-      </a>
     </div>
-    </div>
-  </div>
 
-  <!-- Bottom Navigation -->
-  <div class="nav-header">
-    <div class="container">
-      <nav class="nav">
-        <ul>
-          <li class="active"><a href="index.php">Home</a></li>
-          <li><a href="about.php">About Us</a></li>
-          <li><a href="curriculum.php">Curriculum</a></li>
-          <li><a href="gallery.php">Gallery</a></li>
-          <li><a href="blogs.php">Blogs</a></li>
-        </ul>
-      </nav>
-    </div>
-  </div>
+    <!-- RIGHT: Navigation -->
+    <nav class="header-nav">
+      <a class="<?= ($currentPage=='index.php')?'active':'' ?>" href="index.php">Home</a>
+      <a class="<?= ($currentPage=='about.php')?'active':'' ?>" href="about.php">About Us</a>
+      <a class="<?= ($currentPage=='curriculum.php')?'active':'' ?>" href="curriculum.php">Curriculum</a>
+      <a class="<?= ($currentPage=='gallery.php')?'active':'' ?>" href="gallery.php">Gallery</a>
+      <a class="<?= ($currentPage=='blogs.php')?'active':'' ?>" href="blogs.php">Blogs</a>
+    </nav>
 
+    
+
+  </div>
 </header>
+<section class="page-banner">
+  <div class="container text-center">
+    <h1><?= htmlspecialchars($blog['title']) ?></h1>
+    <p class="text-muted">
+      Published on <?= date("d F Y", strtotime($blog['created_at'])) ?>
+    </p>
+  </div>
+</section>
 
 <section class="content-section">
   <div class="container">
 
-    <h1 class="mb-3">Annual Day Celebration</h1>
-    <p class="text-muted mb-4">Published on 20 January 2026</p>
+    <!-- BLOG TITLE 
+    <h1 class="mb-3"><?= htmlspecialchars($blog['title']) ?></h1>
 
-    <img src="assets/images/blogs/blog1.jpg"
-         class="img-fluid mb-4"
-         alt="Blog Image">
+    DATE 
+    <p class="text-muted mb-4">
+      Published on <?= date("d F Y", strtotime($blog['created_at'])) ?>
+    </p> -->
 
-    <div class="blog-detail-content">
-      <p>
-        The Annual Day celebration was organized with great enthusiasm
-        and participation from students, teachers, and parents.
-      </p>
+    <!-- IMAGE (ONLY IF EXISTS) -->
+    <?php if (!empty($blog['image'])): ?>
+      <img src="admin/blogs/uploads/blogs/<?= $blog['image'] ?>"
+           class="img-fluid mb-4"
+           alt="<?= htmlspecialchars($blog['title']) ?>">
+    <?php endif; ?>
 
-      <p>
-        Cultural programs, speeches, and performances highlighted
-        the talents and creativity of our students.
-      </p>
+    <!-- FULL BLOG CONTENT -->
+  <div class="blog-detail-content">
+  <?= $blog['description'] ?>
+</div>
 
-      <!-- RTF CONTENT GOES HERE LATER -->
-    </div>
 
   </div>
-</section>
+    </section>
 
 <footer class="site-footer">
   <div class="container">
@@ -97,7 +100,7 @@
     <div class="row">
 
       <!-- School Info -->
-      <div class="col-md-4 mb-4">
+      <div class="col-md-4">
         <h5>Gopalkrishna Vidhyprasarak Saunstha</h5>
         <p>
           Sankhali – Goa<br>
@@ -107,7 +110,7 @@
       </div>
 
       <!-- Quick Links -->
-      <div class="col-md-4 mb-4">
+      <div class="col-md-4">
         <h5>Quick Links</h5>
         <ul class="footer-links">
           <li><a href="index.php">Home</a></li>
@@ -119,7 +122,7 @@
       </div>
 
       <!-- Contact & Social -->
-      <div class="col-md-4 mb-4">
+      <div class="col-md-4">
         <h5>Connect With Us</h5>
 
         <p>

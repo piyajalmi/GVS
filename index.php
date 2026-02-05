@@ -1,3 +1,8 @@
+<?php
+$currentPage = basename($_SERVER['PHP_SELF']);
+require __DIR__ . '/admin/includes/db.php';
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,46 +28,32 @@
 
   <!-- ===== HEADER ===== -->
  <!-- ===== HEADER ===== -->
-<header class="header">
+<header class="main-header">
+  <div class="header-inner">
 
-  <!-- Top Header -->
-  <div class="top-header">
-    <div class="container top-header-flex">
-
-      <div class="logo-center">
-        <img src="assets/images/logo.png" alt="School Logo">
-        <div class="school-name">
-          <h1>Gopalkrishna Vidhyprasarak Saunstha</h1>
-          <p>Sankhali – Goa</p>
-        </div>
+    <!-- LEFT: Logo + Name -->
+    <div class="header-left">
+      <img src="assets/images/logo1.png" alt="School Logo">
+      <div class="school-name">
+        <h1>Gopalkrishna Pre-Primary, Primary & High School</h1>
+        <p>Gopalkrishna Vidhyprasarak Saunstha</p>
       </div>
-<div class="header-socials">
-      <a href="https://www.facebook.com/gopalkrishnaschool" aria-label="Facebook" target="_blank">
-        <img src="assets/icons/facebook.png" alt="Facebook">
-      </a>
-      <a href="//www.instagram.com/gopalkrishna_high_school" aria-label="Instagram" target="_blank">
-        <img src="assets/icons/instagram.png" alt="Instagram">
-      </a>
     </div>
-    </div>
-  </div>
 
-  <!-- Bottom Navigation -->
-  <div class="nav-header">
-    <div class="container">
-      <nav class="nav">
-        <ul>
-           <li class="active"><a href="index.php">Home</a></li>
-          <li><a href="about.php">About Us</a></li>
-          <li><a href="curriculum.php">Curriculum</a></li>
-          <li><a href="gallery.php">Gallery</a></li>
-          <li><a href="blogs.php">Blogs</a></li>
-        </ul>
-      </nav>
-    </div>
-  </div>
+    <!-- RIGHT: Navigation -->
+    <nav class="header-nav">
+      <a class="<?= ($currentPage=='index.php')?'active':'' ?>" href="index.php">Home</a>
+      <a class="<?= ($currentPage=='about.php')?'active':'' ?>" href="about.php">About Us</a>
+      <a class="<?= ($currentPage=='curriculum.php')?'active':'' ?>" href="curriculum.php">Curriculum</a>
+      <a class="<?= ($currentPage=='gallery.php')?'active':'' ?>" href="gallery.php">Gallery</a>
+      <a class="<?= ($currentPage=='blogs.php')?'active':'' ?>" href="blogs.php">Blogs</a>
+    </nav>
 
+    
+
+  </div>
 </header>
+
 
 <section class="hero-section">
   <img src="assets/images/hero/Banner.jpeg" alt="School Campus" class="hero-img">
@@ -120,27 +111,72 @@
 
 
 <!-- ===== FACEBOOK UPDATES SECTION ===== -->
-<section class="fb-section">
-  <div class="container text-center">
+<!-- ===== UPDATES SECTION ===== -->
+<section class="content-section light-bg">
+  <div class="container">
 
-    <h2>Latest Updates</h2>
-    <p>Watch our latest activities and events live on Facebook.</p>
+    <h2 class="text-center mb-5">Latest Updates</h2>
 
-    <div class="fb-center">
-      <iframe
-        src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fgopalkrishnaschool&tabs=timeline&width=500&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true"
-        width="500"
-        height="500"
-        style="border:none;overflow:hidden"
-        scrolling="no"
-        frameborder="0"
-        allowfullscreen="true"
-        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
-      </iframe>
+    <div class="row g-4 align-items-start">
+
+      <!-- LEFT: Facebook Feed -->
+      <div class="col-md-6">
+        <div class="update-box">
+          <h5 class="mb-3">Facebook Updates</h5>
+
+          <iframe
+            src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fgopalkrishnaschool&tabs=timeline&width=500&height=450&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true"
+            width="100%"
+            height="450"
+            style="border:none;overflow:hidden"
+            scrolling="no"
+            frameborder="0"
+            allowfullscreen="true"
+            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+          </iframe>
+        </div>
+      </div>
+
+      <!-- RIGHT: Notices / Events -->
+      <div class="col-md-6">
+        <div class="update-box">
+  <h5 class="mb-3">Notices & Events</h5>
+
+  <ul class="notice-list">
+    <?php
+    $result = $conn->query(
+      "SELECT title, file FROM updates ORDER BY id DESC LIMIT 5"
+    );
+
+    if ($result->num_rows > 0):
+      while ($row = $result->fetch_assoc()):
+    ?>
+        <li>
+          📌
+          <?php if (!empty($row['file'])): ?>
+            <a href="admin/uploads/updates/<?= htmlspecialchars($row['file']) ?>"
+               target="_blank">
+              <?= htmlspecialchars($row['title']) ?>
+            </a>
+          <?php else: ?>
+            <?= htmlspecialchars($row['title']) ?>
+          <?php endif; ?>
+        </li>
+    <?php
+      endwhile;
+    else:
+    ?>
+      <li>No updates available</li>
+    <?php endif; ?>
+  </ul>
+</div>
+
+      </div>
+
     </div>
-
   </div>
 </section>
+
 
 
 
@@ -152,7 +188,7 @@
     <div class="row">
 
       <!-- School Info -->
-      <div class="col-md-4 mb-4">
+      <div class="col-md-4 ">
         <h5>Gopalkrishna Vidhyprasarak Saunstha</h5>
         <p>
           Sankhali – Goa<br>
@@ -162,7 +198,7 @@
       </div>
 
       <!-- Quick Links -->
-      <div class="col-md-4 mb-4">
+      <div class="col-md-4 ">
         <h5>Quick Links</h5>
         <ul class="footer-links">
           <li><a href="index.php">Home</a></li>
@@ -174,7 +210,7 @@
       </div>
 
       <!-- Contact & Social -->
-      <div class="col-md-4 mb-4">
+      <div class="col-md-4 ">
         <h5>Connect With Us</h5>
 
         <p>

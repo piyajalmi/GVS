@@ -9,122 +9,112 @@ body {
   font-family: 'Inter', Arial, sans-serif;
   color: #111;
   background-color: #f6f2e8;
-  padding-top: 140px; /* fixed header offset */
+  
+}
+body::before {
+  content: "";
+  display: block;
+  height: 0px; /* same as header height */
 }
 
-/* ================= HEADER ================= */
-.header {
+/* ===== SINGLE OVERLAY HEADER ===== */
+.main-header {
   position: fixed;
   top: 0;
+  left: 0;
   width: 100%;
   z-index: 1000;
+  background: rgba(242,230,201,0.85);
+    transition: 
+    background 0.3s ease,
+    box-shadow 0.3s ease;
+  backdrop-filter: blur(1px);
+ 
 }
-
-/* Top header */
-.top-header {
+.main-header.is-fixed {
+  position: fixed;
   background: #f2e6c9;
-  border-bottom: 1px solid #ddd;
-  padding: 20px 0; 
-
-  position: relative; /* IMPORTANT */
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
 }
-.top-header-flex {
+
+.header-inner {
+  max-width: 1400px;
+  margin: auto;
+  padding: 5px 25px;
+  display: flex;
+  align-items: center;
   justify-content: space-between;
 }
 
-
-
-.top-header-flex {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.logo-center {
+/* LEFT */
+.header-left {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
+ 
 }
 
-.logo-center img {
-  width: 100px;
+.header-left img {
+  width: 60px;
 }
 
 .school-name h1 {
-  font-size: 35px;
+  font-size: 20px;
   font-weight: 700;
+  margin-top: 6px;
 }
 
 .school-name p {
-  font-size: 20px;
+  font-size: 10px;
 }
 
-/* Navigation bar */
-.nav-header {
-  background: #1e1e38;
-  padding: 10px 0;
-}
-
-/* Let nav take full width INSIDE container */
-.nav {
-  width: 100%;
-}
-
-.nav ul {
-  list-style: none;
+/* CENTER / RIGHT NAV */
+.header-nav {
   display: flex;
-  justify-content: space-between; /* spread items */
-  align-items: center;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-}
-.nav li {
-  flex: 1;
-  text-align: center;
+  gap: 36px;
 }
 
-/* Link styling */
-.nav li a {
-    position: relative;
-  display: inline-block;
-  padding: 14px 0;
-  color: #fff;
+.header-nav a {
+  color: #1e1e38;
   text-decoration: none;
-  font-weight: 500;
-  white-space: nowrap; /* PREVENT About / Us wrapping */
+  font-weight: 550;
+  position: relative;
+  margin-bottom: 10px;
 }
 
-
-
-.nav li.active {
-  border-bottom: 3px solid #f2e6c9;
-}
-
-.nav li.active a {
-  font-weight: 700;
-}
-
-/* ===== NAV HOVER EFFECT ===== */
-
-
-.nav li a::after {
+.header-nav a.active::after,
+.header-nav a:hover::after {
   content: "";
   position: absolute;
-  left: 50%;
+  left: 0;
   bottom: -6px;
-  width: 0;
+  width: 100%;
   height: 2px;
-  background: #f2e6c9;
-  transition: 0.3s ease;
-  transform: translateX(-50%);
+  background: #1e1e38;
 }
 
-.nav li a:hover::after {
-  width: 40%;
+/* SOCIALS */
+.header-socials {
+  display: flex;
+  gap: 14px;
+
 }
 
-/* ================= HERO SECTION ================= */
+.header-socials img {
+  width: 20px;
+  margin-top: 20px;
+}
+
+.page-banner {
+  height: 10px;
+}
+
+.inner-page .content-section {
+  padding-top: 20px;   /* space below navbar */
+}
+
+
+/*HERO============= */
 .hero-section {
   position: relative;
   height: 70vh;
@@ -140,7 +130,7 @@ body {
 
 /* Hero text box */
 .hero-content {
-  position: absolute;
+
   top: 50%;
   left: 8%;
   transform: translateY(-50%);
@@ -148,6 +138,8 @@ body {
   color: #111;
   padding: 60px 50px;
   max-width: 520px;
+    position: absolute;
+  z-index: 2;
 }
 
 .hero-content h1 {
@@ -155,61 +147,68 @@ body {
   font-weight: 700;
   margin-bottom: 10px;
 }
+.hero-section {
+  position: relative;
+  height: 100vh;   /* full screen like reference */
+}
 
+.hero-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Dark overlay for readability */
+.hero-section::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.25);
+}
+
+
+/* ===== INNER PAGE HEADER OFFSET FIX ===== */
+.inner-page {
+  padding-top: 60px; /* equal to header height */
+}
 
 
 /* ================= CONTENT SECTIONS ================= */
 .content-section {
-  padding: 80px 0;   /* reduced from 120px */
+  padding: 20px 0;   /* reduced from 120px */
   margin-top: 0;
 }
 
 .content-section.light-bg {
   background: #f6f2e8;
+ padding: 5px 0;
 }
 
 .content-section h2 {
   font-size: 28px;
   font-weight: 700;
   margin-bottom: 15px;
+  margin-top:0;
 }
+.inner-page .content-section h2 {
+  margin-top: 40px;
+}
+
 
 .content-section p {
   font-size: 16px;
   line-height: 1.7;
   color: #333;
 }
+/* Reduce top gap for first section on inner pages */
+.inner-page .content-section:first-of-type {
+  padding-top: 30px;
+}
 
 /* ================= RESPONSIVE ================= */
-@media (max-width: 768px) {
 
-  body {
-    padding-top: 160px;
-  }
-
-  .school-name h1 {
-    font-size: 22px;
-  }
-
-  .school-name p {
-    font-size: 14px;
-  }
-
-  .hero-section {
-    height: auto;
-  }
-
-  .hero-content {
-    position: static;
-    transform: none;
-    margin: 20px;
-    max-width: 100%;
-  }
-
-  .hero-content h1 {
-    font-size: 26px;
-  }
-}
 /* ===== FACEBOOK SECTION ===== */
 .fb-video-wrapper {
   max-width: 600px;
@@ -279,32 +278,7 @@ body {
   border-radius: 10px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.08);
 }
-/* ===== HEADER SOCIAL ICONS ===== */
-.header-socials {
-  display: flex;
-  gap: 16px;
-  align-items: center;
-}
 
-
-
-.header-socials a img {
-  width: 30px;
-  height: 30px;
-  opacity: 0.85;
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.header-socials a:hover img {
-  opacity: 1;
-  transform: translateY(-2px);
-}
-
-/* Invisible spacer to balance center logo */
-.header-spacer {
-  width: 80px;
-}
-/* ===== PAGE BANNER ===== */
 /* ===== PAGE BANNER (INNER PAGES) ===== */
 .inner-page .page-banner {
   background: #f6f2e8;
@@ -412,6 +386,11 @@ body {
   color: #555;
   line-height: 1.6;
 }
+/* ===== BLOG DETAIL PAGE FIX ===== */
+.inner-page .content-section h1 {
+  margin-top: 0;
+}
+
 
 .read-more {
   display: inline-block;
@@ -433,21 +412,32 @@ body {
 .site-footer {
   background: #1e1e38;
   color: #fff;
-  padding: 14px 24px;     /* ↓ reduced */
-  margin-top: 40px;
+  padding: 12px 0 8px;   /* reduced */
+  margin-top: 25px;
 }
 
 .site-footer h5 {
-  font-size: 15px;
-  margin-bottom: 6px;
+  font-size: 16px;
+  margin-bottom: 10px;
+  font-weight: 600;
 }
-
 .site-footer p {
   font-size: 13px;
-  line-height: 1.5;
-  margin-bottom: 6px;
+  color: #ddd;
+  line-height: 1.4;
+  margin-bottom: 10px;   /* IMPORTANT */
 }
 
+.footer-links {
+  list-style: none;
+  padding: 0;
+}
+
+.site-footer .row > div {
+  margin-bottom: 10px !important;
+}
+
+/* Links */
 .footer-links li {
   margin-bottom: 4px;
 }
@@ -455,15 +445,36 @@ body {
 .footer-links a {
   font-size: 13px;
 }
-.site-footer hr {
-  margin: 10px 0;
-  border-color: rgba(255,255,255,0.15);
-}
-.footer-bottom p {
-  font-size: 12px;
-  margin: 0;
+
+.footer-links a:hover {
+  color: #fff;
+  text-decoration: underline;
 }
 
+/* Social icons */
+.footer-socials {
+  display: flex;
+  gap: 10px;
+  margin-top: 6px;   /* reduced */
+}
+
+.footer-socials img {
+  width: 14px;
+  height: 14px;
+}
+
+/* Divider */
+.site-footer hr {
+  border-color: rgba(255,255,255,0.12);
+  margin: 8px 0;   /* BIG FIX */
+}
+
+/* Bottom copyright */
+.footer-bottom p {
+  font-size: 11px;
+  color: #bbb;
+  margin: 0;       /* IMPORTANT */
+}
 /* ===== GLOBAL ANIMATION BASE ===== */
 :root {
   --anim-fast: 0.3s ease-out;
@@ -725,7 +736,7 @@ h1, h2, h3, h4, h5 {
 }
 /* ===== HOME HIGHLIGHT SECTION ===== */
 .home-highlight {
-  padding: 100px 0;
+  padding: 15px 0;
   background: #f6f2e8;
 }
 
@@ -787,10 +798,10 @@ h1, h2, h3, h4, h5 {
   }
 }
 /* ===== HOME HIGHLIGHT (TEXT LEFT / SLIDER RIGHT) ===== */
-.home-highlight {
+/* .home-highlight {
   padding: 100px 0;
   background: #f6f2e8;
-}
+} */
 
 .home-highlight-grid {
   display: grid;
@@ -858,9 +869,52 @@ h1, h2, h3, h4, h5 {
     font-size: 24px;
   }
 }
-/* ===== FOOTER SIZE FIX ===== */
+/* ===== UPDATES 2-COLUMN SECTION ===== */
+.update-box {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+}
 
-/* Kill Bootstrap spacing inside footer */
-.site-footer .mb-4 {
-  margin-bottom: 8px !important;
+.update-box h5 {
+  font-weight: 600;
+  color: #1e1e38;
+}
+
+.notice-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.notice-list li {
+  padding: 10px 0;
+  border-bottom: 1px dashed #ddd;
+  font-size: 15px;
+  color: #333;
+}
+
+.notice-list li:last-child {
+  border-bottom: none;
+}
+
+/* ===== FINAL ACCORDION COMPACT FIX ===== */
+.accordion {
+  margin-bottom: 0;
+}
+
+.accordion-item {
+  margin-bottom: 6px;
+}
+
+.accordion-button {
+  padding: 10px 14px !important;
+  font-size: 15px;
+}
+
+.accordion-body {
+  padding: 10px 14px !important;
+}
+.pt-0 {
+  padding-top: 0 !important;
 }

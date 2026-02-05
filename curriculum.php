@@ -1,4 +1,14 @@
+<?php
+$currentPage = basename($_SERVER['PHP_SELF']);
+require "admin/includes/db.php";
+$sections = $conn->query(
+  "SELECT * FROM curriculum_sections
+   WHERE is_active=1
+   ORDER BY sort_order"
+);
+?>
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -21,128 +31,67 @@
 </head>
 <body class="inner-page">
 
-  <!-- ===== HEADER ===== -->
- <!-- ===== HEADER ===== -->
-<header class="header">
+  <header class="main-header">
+  <div class="header-inner">
 
-  <!-- Top Header -->
-  <div class="top-header">
-    <div class="container top-header-flex">
-
-      <div class="logo-center">
-        <img src="assets/images/logo.png" alt="School Logo">
-        <div class="school-name">
-          <h1>Gopalkrishna Vidhyprasarak Saunstha</h1>
-          <p>Sankhali – Goa</p>
-        </div>
+    <!-- LEFT: Logo + Name -->
+    <div class="header-left">
+      <img src="assets/images/logo1.png" alt="School Logo">
+      <div class="school-name">
+        <h1>Gopalkrishna Pre-Primary, Primary & High School</h1>
+        <p>Gopalkrishna Vidhyprasarak Saunstha</p>
       </div>
-<div class="header-socials">
-      <a href="https://www.facebook.com/gopalkrishnaschool" aria-label="Facebook" target="_blank">
-        <img src="assets/icons/facebook.png" alt="Facebook">
-      </a>
-      <a href="//www.instagram.com/gopalkrishna_high_school" aria-label="Instagram" target="_blank">
-        <img src="assets/icons/instagram.png" alt="Instagram">
-      </a>
     </div>
-    </div>
-  </div>
 
-  <!-- Bottom Navigation -->
-  <div class="nav-header">
-    <div class="container">
-      <nav class="nav">
-        <ul>
-           <li class="active"><a href="index.php">Home</a></li>
-          <li><a href="about.php">About Us</a></li>
-          <li><a href="curriculum.php">Curriculum</a></li>
-          <li><a href="gallery.php">Gallery</a></li>
-          <li><a href="blogs.php">Blogs</a></li>
-        </ul>
-      </nav>
-    </div>
-  </div>
+    <!-- RIGHT: Navigation -->
+    <nav class="header-nav">
+      <a class="<?= ($currentPage=='index.php')?'active':'' ?>" href="index.php">Home</a>
+      <a class="<?= ($currentPage=='about.php')?'active':'' ?>" href="about.php">About Us</a>
+      <a class="<?= ($currentPage=='curriculum.php')?'active':'' ?>" href="curriculum.php">Curriculum</a>
+      <a class="<?= ($currentPage=='gallery.php')?'active':'' ?>" href="gallery.php">Gallery</a>
+      <a class="<?= ($currentPage=='blogs.php')?'active':'' ?>" href="blogs.php">Blogs</a>
+    </nav>
 
+    
+
+  </div>
 </header>
 
 
-<section class="page-banner">
+
+<?php while($c = $sections->fetch_assoc()): ?>
+<section class="content-section">
   <div class="container text-center">
-    <h1>Curriculum</h1>
-    <p>Our academic structure across different learning stages</p>
-  </div>
-</section>
-<section class="content-section">
-  <div class="container">
 
-    <h2 class="text-center mb-4">Pre-Primary</h2>
+    <h2><?= $c['title'] ?></h2>
 
-    <div class="curriculum-box reveal">
-      <p>
-        The Pre-Primary curriculum focuses on early childhood development
-        through play-based learning, creativity, and exploration.
-        Activities are designed to enhance motor skills, communication,
-        social interaction, and emotional development in a nurturing
-        environment.
-      </p>
-
-      <p>
-        Emphasis is placed on storytelling, music, art, basic numeracy,
-        and language skills to prepare children for formal schooling.
-      </p>
-    </div>
-
-  </div>
-</section>
-<section class="content-section light-bg">
-  <div class="container">
-
-    <h2 class="text-center mb-4">Primary</h2>
+    <?php if ($c['image']): ?>
+      <img src="/GVS/admin/uploads/curriculum/images/<?= $c['image'] ?>"
+           class="img-fluid mb-3">
+    <?php endif; ?>
 
     <div class="curriculum-box">
-      <p>
-        The Primary curriculum builds a strong academic foundation while
-        encouraging curiosity and independent thinking.
-        Students are introduced to structured learning in subjects such
-        as languages, mathematics, environmental studies, and value
-        education.
-      </p>
-
-      <p>
-        Co-curricular activities, physical education, and life-skills
-        programs are integrated to support holistic development.
-      </p>
+      <?= $c['content'] ?>
     </div>
+
+    <?php if ($c['document']): ?>
+      <a href="/GVS/admin/uploads/curriculum/docs/<?= $c['document'] ?>"
+         class="btn btn-outline-dark mt-3"
+         target="_blank">
+        Download Curriculum
+      </a>
+    <?php endif; ?>
 
   </div>
 </section>
-<section class="content-section">
-  <div class="container">
-
-    <h2 class="text-center mb-4">High School</h2>
-
-    <div class="curriculum-box">
-      <p>
-        The High School curriculum is designed to prepare students for
-        higher education and future careers through academic rigor and
-        skill-based learning.
-      </p>
-
-      <p>
-        Emphasis is given to subject depth, critical thinking, practical
-        application, and moral values, along with guidance for academic
-        and personal growth.
-      </p>
-    </div>
-
-  </div>
-</section>
+<?php endwhile; ?>
 <footer class="site-footer">
   <div class="container">
 
     <div class="row">
 
       <!-- School Info -->
-      <div class="col-md-4 mb-4">
+      <div class="col-md-4">
         <h5>Gopalkrishna Vidhyprasarak Saunstha</h5>
         <p>
           Sankhali – Goa<br>
@@ -152,7 +101,7 @@
       </div>
 
       <!-- Quick Links -->
-      <div class="col-md-4 mb-4">
+      <div class="col-md-4">
         <h5>Quick Links</h5>
         <ul class="footer-links">
           <li><a href="index.php">Home</a></li>
@@ -164,7 +113,7 @@
       </div>
 
       <!-- Contact & Social -->
-      <div class="col-md-4 mb-4">
+      <div class="col-md-4">
         <h5>Connect With Us</h5>
 
         <p>

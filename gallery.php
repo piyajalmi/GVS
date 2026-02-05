@@ -1,4 +1,13 @@
+<?php
+$currentPage = basename($_SERVER['PHP_SELF']);
+require "admin/includes/db.php";
+$events = $conn->query(
+  "SELECT * FROM gallery_events ORDER BY sort_order, id DESC"
+);
+?>
+
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -22,216 +31,79 @@
 <body class="inner-page">
 
   <!-- ===== HEADER ===== -->
- <!-- ===== HEADER ===== -->
-<header class="header">
 
-  <!-- Top Header -->
-  <div class="top-header">
-    <div class="container top-header-flex">
+ <header class="main-header">
+  <div class="header-inner">
 
-      <div class="logo-center">
-        <img src="assets/images/logo.png" alt="School Logo">
-        <div class="school-name">
-          <h1>Gopalkrishna Vidhyprasarak Saunstha</h1>
-          <p>Sankhali – Goa</p>
-        </div>
+    <!-- LEFT: Logo + Name -->
+    <div class="header-left">
+      <img src="assets/images/logo1.png" alt="School Logo">
+      <div class="school-name">
+        <h1>Gopalkrishna Pre-Primary, Primary & High School</h1>
+        <p>Gopalkrishna Vidhyprasarak Saunstha</p>
       </div>
-<div class="header-socials">
-      <a href="https://www.facebook.com/gopalkrishnaschool" aria-label="Facebook" target="_blank">
-        <img src="assets/icons/facebook.png" alt="Facebook">
-      </a>
-      <a href="//www.instagram.com/gopalkrishna_high_school" aria-label="Instagram" target="_blank">
-        <img src="assets/icons/instagram.png" alt="Instagram">
-      </a>
     </div>
-    </div>
-  </div>
 
-  <!-- Bottom Navigation -->
-  <div class="nav-header">
-    <div class="container">
-      <nav class="nav">
-        <ul>
-          <li class="active"><a href="index.php">Home</a></li>
-          <li><a href="about.php">About Us</a></li>
-          <li><a href="curriculum.php">Curriculum</a></li>
-          <li><a href="gallery.php">Gallery</a></li>
-          <li><a href="blogs.php">Blogs</a></li>
-        </ul>
-      </nav>
-    </div>
-  </div>
+    <!-- RIGHT: Navigation -->
+    <nav class="header-nav">
+      <a class="<?= ($currentPage=='index.php')?'active':'' ?>" href="index.php">Home</a>
+      <a class="<?= ($currentPage=='about.php')?'active':'' ?>" href="about.php">About Us</a>
+      <a class="<?= ($currentPage=='curriculum.php')?'active':'' ?>" href="curriculum.php">Curriculum</a>
+      <a class="<?= ($currentPage=='gallery.php')?'active':'' ?>" href="gallery.php">Gallery</a>
+      <a class="<?= ($currentPage=='blogs.php')?'active':'' ?>" href="blogs.php">Blogs</a>
+    </nav>
 
+    
+
+  </div>
 </header>
 
 <section class="content-section">
   <div class="container">
 
-    <h2 class="text-center mb-5">School Events</h2>
+    
 
-    <!-- ================= Independence Day ================= -->
-    <h3 class="text-center mt-5 mb-3">Independence Day</h3>
+    <?php while($e = $events->fetch_assoc()): ?>
 
-    <div id="eventIndependence" class="carousel slide carousel-fade event-slider"
-         data-bs-ride="carousel" data-bs-touch="true" data-bs-interval="3500">
+      <h3 class="text-center mt-5 mb-2">
+        <?= $e['title'] ?>
+      </h3>
 
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img src="assets/images/events/independence1.jpeg" alt="Independence Day">
+      <?php if($e['description']): ?>
+        <p class="text-center mb-3"><?= $e['description'] ?></p>
+      <?php endif; ?>
+
+      <?php
+        $imgs = $conn->query(
+          "SELECT * FROM gallery_images WHERE event_id=".$e['id']
+        );
+      ?>
+
+      <div class="carousel slide carousel-fade event-slider"
+           data-bs-ride="carousel" data-bs-interval="3500">
+
+        <div class="carousel-inner">
+          <?php $first=true; ?>
+          <?php while($img = $imgs->fetch_assoc()): ?>
+            <div class="carousel-item <?= $first?'active':'' ?>">
+              <img src="admin/gallery/uploads/gallery/<?= $img['image'] ?>">
+            </div>
+            <?php $first=false; ?>
+          <?php endwhile; ?>
         </div>
-        <div class="carousel-item">
-          <img src="assets/images/events/independence2.jpeg" alt="Independence Day">
-        </div>
-        <div class="carousel-item">
-          <img src="assets/images/events/independence3.jpeg" alt="Independence Day">
-        </div>
+
+        <button class="carousel-control-prev" type="button"
+                data-bs-slide="prev">
+          <span class="carousel-control-prev-icon"></span>
+        </button>
+
+        <button class="carousel-control-next" type="button"
+                data-bs-slide="next">
+          <span class="carousel-control-next-icon"></span>
+        </button>
       </div>
 
-      <button class="carousel-control-prev" type="button"
-              data-bs-target="#eventIndependence" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon"></span>
-      </button>
-
-      <button class="carousel-control-next" type="button"
-              data-bs-target="#eventIndependence" data-bs-slide="next">
-        <span class="carousel-control-next-icon"></span>
-      </button>
-    </div>
-
-
-    <!-- ================= Children’s Day ================= -->
-    <h3 class="text-center mt-5 mb-3">Children’s Day</h3>
-
-    <div id="eventChildren" class="carousel slide carousel-fade event-slider"
-         data-bs-ride="carousel" data-bs-touch="true" data-bs-interval="3500">
-
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img src="assets/images/events/children1.jpeg" alt="Children’s Day">
-        </div>
-        <div class="carousel-item">
-          <img src="assets/images/events/children2.jpeg" alt="Children’s Day">
-        </div>
-      </div>
-
-      <button class="carousel-control-prev" type="button"
-              data-bs-target="#eventChildren" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon"></span>
-      </button>
-
-      <button class="carousel-control-next" type="button"
-              data-bs-target="#eventChildren" data-bs-slide="next">
-        <span class="carousel-control-next-icon"></span>
-      </button>
-    </div>
-
-
-    <!-- ================= Teachers’ Day ================= -->
-    <h3 class="text-center mt-5 mb-3">Teachers’ Day</h3>
-
-    <div id="eventTeachers" class="carousel slide carousel-fade event-slider"
-         data-bs-ride="carousel" data-bs-touch="true" data-bs-interval="3500">
-
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img src="assets/images/events/teachers1.jpg" alt="Teachers Day">
-        </div>
-        <div class="carousel-item">
-          <img src="assets/images/events/teachers2.jpg" alt="Teachers Day">
-        </div>
-      </div>
-
-      <button class="carousel-control-prev" type="button"
-              data-bs-target="#eventTeachers" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon"></span>
-      </button>
-
-      <button class="carousel-control-next" type="button"
-              data-bs-target="#eventTeachers" data-bs-slide="next">
-        <span class="carousel-control-next-icon"></span>
-      </button>
-    </div>
-
-
-    <!-- ================= Sports Day ================= -->
-    <h3 class="text-center mt-5 mb-3">Sports Day</h3>
-
-    <div id="eventSports" class="carousel slide carousel-fade event-slider"
-         data-bs-ride="carousel" data-bs-touch="true" data-bs-interval="3500">
-
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img src="assets/images/events/sports1.jpg" alt="Sports Day">
-        </div>
-        <div class="carousel-item">
-          <img src="assets/images/events/sports2.jpg" alt="Sports Day">
-        </div>
-      </div>
-
-      <button class="carousel-control-prev" type="button"
-              data-bs-target="#eventSports" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon"></span>
-      </button>
-
-      <button class="carousel-control-next" type="button"
-              data-bs-target="#eventSports" data-bs-slide="next">
-        <span class="carousel-control-next-icon"></span>
-      </button>
-    </div>
-
-
-    <!-- ================= Guru Purnima ================= -->
-    <h3 class="text-center mt-5 mb-3">Guru Purnima</h3>
-
-    <div id="eventGuru" class="carousel slide carousel-fade event-slider"
-         data-bs-ride="carousel" data-bs-touch="true" data-bs-interval="3500">
-
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img src="assets/images/events/guru1.jpg" alt="Guru Purnima">
-        </div>
-        <div class="carousel-item">
-          <img src="assets/images/events/guru2.jpg" alt="Guru Purnima">
-        </div>
-      </div>
-
-      <button class="carousel-control-prev" type="button"
-              data-bs-target="#eventGuru" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon"></span>
-      </button>
-
-      <button class="carousel-control-next" type="button"
-              data-bs-target="#eventGuru" data-bs-slide="next">
-        <span class="carousel-control-next-icon"></span>
-      </button>
-    </div>
-
-
-    <!-- ================= Science Day ================= -->
-    <h3 class="text-center mt-5 mb-3">Science Day</h3>
-
-    <div id="eventScience" class="carousel slide carousel-fade event-slider"
-         data-bs-ride="carousel" data-bs-touch="true" data-bs-interval="3500">
-
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img src="assets/images/events/science1.jpg" alt="Science Day">
-        </div>
-        <div class="carousel-item">
-          <img src="assets/images/events/science2.jpg" alt="Science Day">
-        </div>
-      </div>
-
-      <button class="carousel-control-prev" type="button"
-              data-bs-target="#eventScience" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon"></span>
-      </button>
-
-      <button class="carousel-control-next" type="button"
-              data-bs-target="#eventScience" data-bs-slide="next">
-        <span class="carousel-control-next-icon"></span>
-      </button>
-    </div>
+    <?php endwhile; ?>
 
   </div>
 </section>
@@ -244,7 +116,7 @@
     <div class="row">
 
       <!-- School Info -->
-      <div class="col-md-4 mb-4">
+      <div class="col-md-4">
         <h5>Gopalkrishna Vidhyprasarak Saunstha</h5>
         <p>
           Sankhali – Goa<br>
@@ -254,7 +126,7 @@
       </div>
 
       <!-- Quick Links -->
-      <div class="col-md-4 mb-4">
+      <div class="col-md-4">
         <h5>Quick Links</h5>
         <ul class="footer-links">
           <li><a href="index.php">Home</a></li>
@@ -266,7 +138,7 @@
       </div>
 
       <!-- Contact & Social -->
-      <div class="col-md-4 mb-4">
+      <div class="col-md-4">
         <h5>Connect With Us</h5>
 
         <p>
